@@ -5,14 +5,16 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
+var expressHandlebars = require('express-handlebars');
 
 var indexRouter = require('./routes/index');
 
 var app = express();
 
 // view engine setup
+app.engine('handlebars', expressHandlebars());
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+app.set('view engine', 'handlebars');
 
 app.use(session({
   store: new RedisStore({
